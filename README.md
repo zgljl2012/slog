@@ -31,11 +31,3 @@ func TestLog(t *testing.T) {
 
 
 ```
-
-And you can set `lineNumber` as your needs.
-
-```bash
-
-
-
-```
