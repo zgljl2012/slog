@@ -1,4 +1,4 @@
-package log_test
+package slog_test
 
 import (
 	log "slog/slog"

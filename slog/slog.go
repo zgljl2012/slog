@@ -2,6 +2,7 @@ package slog
 
 import (
 	"os"
+	"slog/slog/hook"
 
 	"github.com/sirupsen/logrus"
 )
@@ -17,6 +18,8 @@ func init() {
 	log.SetReportCaller(false)
 	log.SetFormatter(customFormatter)
 	log.SetOutput(os.Stdout)
+
+	log.AddHook(hook.NewStackHook())
 }
 
 func exec(level logrus.Level, msg interface{}, args ...interface{}) {
