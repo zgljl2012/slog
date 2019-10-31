@@ -1,8 +1,9 @@
 package slog_test
 
 import (
-	log "slog/slog"
 	"testing"
+
+	log "github.com/zgljl2012/slog"
 
 	"github.com/sirupsen/logrus"
 )

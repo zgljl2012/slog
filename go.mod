@@ -1,8 +1,5 @@
-module slog
+module github.com/zgljl2012/slog
 
 go 1.13
 
-require (
-	bitbucket.org/cpchain/chain v0.4.8 // indirect
-	github.com/sirupsen/logrus v1.4.2
-)
+require github.com/sirupsen/logrus v1.4.2

@@ -2,9 +2,9 @@ package slog
 
 import (
 	"os"
-	"slog/slog/hook"
 
 	"github.com/sirupsen/logrus"
+	"github.com/zgljl2012/slog/hook"
 )
 
 // Log instance
