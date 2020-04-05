@@ -3,15 +3,18 @@ package slog
 import (
 	"os"
 
-	"github.com/sirupsen/logrus"
 	"github.com/zgljl2012/slog/hook"
+
+	"github.com/rifflock/lfshook"
+	"github.com/sirupsen/logrus"
 )
 
 // Log instance
 var log = logrus.New()
+var customFormatter *logrus.TextFormatter
 
 func init() {
-	customFormatter := new(logrus.TextFormatter)
+	customFormatter = new(logrus.TextFormatter)
 	customFormatter.TimestampFormat = "2006-01-02 15:04:05"
 	customFormatter.FullTimestamp = true
 	// Add this line for logging filename and line number!
@@ -66,6 +69,21 @@ func exec(level logrus.Level, msg interface{}, args ...interface{}) {
 // SetLevel set log level
 func SetLevel(level logrus.Level) {
 	log.SetLevel(level)
+}
+
+// SetLogPath set path
+func SetLogPath(path string) {
+	pathMap := lfshook.PathMap{
+		logrus.DebugLevel: path,
+		logrus.InfoLevel:  path,
+		logrus.WarnLevel:  path,
+		logrus.ErrorLevel: path,
+		logrus.FatalLevel: path,
+	}
+	log.AddHook(lfshook.NewHook(
+		pathMap,
+		customFormatter,
+	))
 }
 
 // Debug level

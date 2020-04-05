@@ -12,6 +12,8 @@ func TestLog(t *testing.T) {
 
 	log.SetLevel(logrus.DebugLevel)
 
+	log.SetLogPath("/tmp/test.log")
+
 	log.Info("Hello")
 	log.Info("Hello", "this should be a error")
 	log.Info("Hello", "status", "normal")
