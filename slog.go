@@ -3,15 +3,14 @@ package slog
 import (
 	"os"
 
-	"github.com/zgljl2012/slog/hook"
-
-	"github.com/rifflock/lfshook"
 	"github.com/sirupsen/logrus"
+	"github.com/zgljl2012/slog/hooks"
 )
 
 // Log instance
 var log = logrus.New()
 var customFormatter *logrus.TextFormatter
+var hook *hooks.StackHook
 
 func init() {
 	customFormatter = new(logrus.TextFormatter)
@@ -22,7 +21,9 @@ func init() {
 	log.SetFormatter(customFormatter)
 	log.SetOutput(os.Stdout)
 
-	log.AddHook(hook.NewStackHook())
+	hook = hooks.NewStackHook(customFormatter)
+
+	log.AddHook(hook)
 }
 
 func exec(level logrus.Level, msg interface{}, args ...interface{}) {
@@ -73,17 +74,7 @@ func SetLevel(level logrus.Level) {
 
 // SetLogPath set path
 func SetLogPath(path string) {
-	pathMap := lfshook.PathMap{
-		logrus.DebugLevel: path,
-		logrus.InfoLevel:  path,
-		logrus.WarnLevel:  path,
-		logrus.ErrorLevel: path,
-		logrus.FatalLevel: path,
-	}
-	log.AddHook(lfshook.NewHook(
-		pathMap,
-		customFormatter,
-	))
+	hook.SetLogPath(path)
 }
 
 // Debug level
