@@ -1,7 +1,9 @@
 package slog
 
 import (
+	"fmt"
 	"os"
+	"time"
 
 	"github.com/sirupsen/logrus"
 	"github.com/zgljl2012/slog/hooks"
@@ -75,6 +77,15 @@ func SetLevel(level logrus.Level) {
 // SetLogPath set path
 func SetLogPath(path string) {
 	hook.SetLogPath(path)
+}
+
+// SetRotationTime set rotation time, at least 1 second
+func SetRotationTime(rotationTime time.Duration) error {
+	if rotationTime < time.Second {
+		return fmt.Errorf("rotation can't be less than one second")
+	}
+	hook.SetRotationTime(rotationTime)
+	return nil
 }
 
 // Debug level

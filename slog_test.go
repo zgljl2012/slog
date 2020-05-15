@@ -2,6 +2,7 @@ package slog_test
 
 import (
 	"testing"
+	"time"
 
 	log "github.com/zgljl2012/slog"
 
@@ -13,6 +14,7 @@ func TestLog(t *testing.T) {
 	log.SetLevel(logrus.DebugLevel)
 
 	log.SetLogPath("/tmp/test.log")
+	log.SetRotationTime(time.Second)
 
 	log.Info("Hello")
 	log.Info("Hello", "this should be a error")
@@ -20,6 +22,8 @@ func TestLog(t *testing.T) {
 
 	log.Debug("debug")
 	log.Debug("debug", "level", 0)
+
+	time.Sleep(time.Second)
 
 	log.Info("info")
 	log.Info("info", "l", 1, "hello", "world")
